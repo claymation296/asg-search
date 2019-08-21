@@ -1,0 +1,40 @@
+
+<style>
+
+	:host {
+		display: block;
+		z-index: 1; /* make sure dropdown menu is on top of content below this parent */
+	}
+
+	paper-toggle-button {
+		padding: 0px 8px;
+		--paper-toggle-button-unchecked-button-color: var(--app-body-color);
+		--paper-toggle-button-unchecked-ink-color: 		var(--app-secondary-color);
+    --paper-toggle-button-checked-bar-color:      var(--search-selected-color);
+    --paper-toggle-button-checked-button-color:   var(--search-selected-color);
+    --paper-toggle-button-checked-ink-color:      var(--search-selected-color);
+    --paper-toggle-button-label-color: 						var(--secondary-text-color);
+	}
+
+	paper-toggle-button[checked] {		
+    --paper-toggle-button-label-color: var(--search-selected-color);
+	}
+
+</style>
+
+
+<filter-card heading="Format Legality">
+
+	<chain-selector slot="chain-btn" 
+									on-chain-selector-selected-changed="__chainSelected">
+	</chain-selector>
+
+	<keyword-items-selector items="[[_items]]"
+	                        keyword="format"
+	                        on-keyword-items-selector-selected-changed="__selected">
+	</keyword-items-selector>
+
+	<paper-toggle-button on-checked-changed="__checked">
+		Banned
+	</paper-toggle-button>
+</filter-card>

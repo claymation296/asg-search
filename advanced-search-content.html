@@ -1,0 +1,161 @@
+
+<style>
+      
+  :host {
+  	display:        flex;
+    flex-direction: column;
+    align-items:    center;
+  	width: 			    100%;
+  	min-height:     100vh;
+  	/* 100vh bottom padding so user can scroll far enough to see image fullscreen */
+  	padding: 		    32px 0px 100vh 0px; 
+    background-color: 			 var(--app-body-color);
+    --search-selected-color: var(--app-primary-color);
+  }
+
+  #img-wrapper {
+  	position: fixed;
+  	top: 			0px;
+  	left: 		0px;
+  	height:   100vh;
+  	width:    100vw;
+  	background-color: inherit; /* for iron-image fade in */
+  }
+
+  iron-image {
+  	height: 100%;
+  	width:  100%;
+  	background-color: inherit;
+  }
+
+  #random-card-info {
+  	position: 	absolute;
+  	bottom: 		16px;
+  	right: 			16px;
+    text-align: end;
+  }
+
+  #artist {    
+    font-style: italic;
+  }
+
+  #max-width-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(304px, 702px));
+    z-index: 0; /* above background img */
+  }
+
+  #selector-cards-wrapper {
+  	display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(288px, 1fr));
+    grid-gap: 8px;
+  }
+
+  #right-side-grids {
+    display:         flex;
+    flex-direction:  column;
+    justify-content: space-between;
+  }
+
+  #number-cards-wrapper {  	
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(224px, 1fr));
+    grid-gap: 8px;
+  }
+
+  .wrapper {
+  	padding: 8px 4px 0px 4px;
+  }
+
+  @media only screen and (min-width: 415px) {
+
+  	.wrapper {
+  		padding: 8px 16px 0px 16px;
+  	}
+
+  }
+
+  @media only screen and (min-width: 1408px) {    
+
+    #max-width-grid {
+      width:     100%;
+      max-width: 1408px;
+      margin:    0px auto;
+    }
+
+  }
+
+</style>
+
+
+<div id="img-wrapper">
+	<iron-image fade 
+							preload 
+							sizing="cover"
+							src="[[_backgroundImg]]">
+	</iron-image>
+  <div id="random-card-info">
+    <div>[[_randomCardName]]</div>
+  	<div id="artist" hidden="[[_randomCardArtistHidden]]">
+  		<iron-icon icon="asg-icons:brush"></iron-icon>
+  		[[_randomCardArtist]]
+  	</div>
+  </div>
+</div>
+
+
+<div id="max-width-grid">
+
+	<div id="selector-cards-wrapper" class="wrapper">
+		<search-type-card></search-type-card>
+
+		<sort-card></sort-card>
+
+		<is-card></is-card>
+
+		<set-card selected="[[selectedSet]]"></set-card>
+
+    <rarity-card></rarity-card>
+
+		<format-card></format-card>
+	</div>
+
+  <div id="right-side-grids">
+  	<div class="wrapper">
+  		<color-card></color-card>
+  	</div>
+
+  	<div id="number-cards-wrapper" class="wrapper">
+  		<filter-number-card keyword="cms" 
+  		                    name="Cost"
+  		                    title="Converted Mana Cost">
+  		</filter-number-card>
+
+  		<filter-number-card keyword="power" 
+  		                    name="Power"
+  		                    title="Power">
+  		</filter-number-card>
+
+  		<filter-number-card keyword="toughness" 
+  		                    name="Toughness"
+  		                    title="Toughness">
+  		</filter-number-card>
+
+  		<filter-number-card keyword="powtou" 
+  		                    name="Pow + Tough"
+  		                    title="Power and Toughness">
+  		</filter-number-card>
+
+  		<filter-number-card keyword="loyalty" 
+  		                    name="Loyalty"
+  		                    title="Loyalty">
+  		</filter-number-card>
+
+  		<filter-number-card keyword="usd" 
+  		                    name="Price"
+  		                    title="Price">
+  		</filter-number-card>
+  	</div>
+  </div>
+
+</div>

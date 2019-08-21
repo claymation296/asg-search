@@ -1,0 +1,82 @@
+
+<style>
+
+	:host {
+		display: 	 block;
+		width:  	 100%;
+    max-width: 414px;
+    padding: 	 16px;
+	}
+
+	#controls-container {
+		display: 				 flex;
+    justify-content: space-between;
+    margin-bottom: 	 32px;
+	}
+
+	#btns-container {
+		display: grid;
+		grid-template-columns: 80px 80px;
+	}
+
+	.btn-wrapper {
+		display:  flex;
+		overflow: hidden;
+	}
+
+	paper-button {
+		margin: 0px;
+		background-color: var(--app-background-color);
+		color: 						var(--dark-text-color);
+	}
+
+	.iron-selected paper-button {
+		background-color: var(--search-selected-color);
+		color: 						var(--constant-light-text);
+	}
+
+	.second-btn {
+		justify-content: flex-end;
+	}
+
+  paper-input {
+    --paper-input-container-color:       var(--secondary-text-color);
+    --paper-input-container-input-color: var(--dark-text-color);
+    --paper-input-container-focus-color: var(--search-selected-color);
+    --paper-input-container-underline-focus: { /* broken paper-input fix (3.0.0-pre.1) */
+      transition: transform 0.25s ease-in-out;
+    };
+  }
+	
+</style>
+
+
+<div id="controls-container">
+	<iron-selector id="btns-container"
+								 attr-for-selected="prop"
+								 selected="[[_prop]]"
+								 on-selected-changed="__selectedPropChanged">		
+		<div class="btn-wrapper" 
+				 prop="released_at">
+			<paper-button>release</paper-button>
+		</div>
+		<div class="btn-wrapper second-btn" 
+				 prop="name">
+			<paper-button>name</paper-button>
+		</div>
+	</iron-selector>
+
+	<direction-button direction="[[_direction]]" 
+										on-direction-button-value-changed="__directionChanged">
+	</direction-button>
+</div>
+
+<!-- allowed-pattern -> letters, numbers and spaces -->
+<paper-input label="[[_label]]" 
+             allowed-pattern="[a-zA-Z0-9/\s]" 
+             autocorrect 
+             autocomplete 
+             autocapitalize 
+             tabindex="0"
+             on-value-changed="__inputValueChanged">
+</paper-input>

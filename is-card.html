@@ -1,0 +1,49 @@
+
+<style>
+
+	:host {
+		display: block;
+	}
+
+	#content {
+		display: 							 grid;
+		grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+		width: 	 100%;
+		padding: 8px 0px;
+	}
+
+  paper-checkbox {
+  	padding: 16px 8px;
+    --paper-checkbox-unchecked-color:     var(--dark-text-color);
+    --paper-checkbox-unchecked-ink-color: var(--secondary-text-color);
+    --paper-checkbox-checked-color:     	var(--search-selected-color);
+    --paper-checkbox-checked-ink-color: 	var(--search-selected-color);
+    --paper-checkbox-label-color:       	var(--secondary-text-color);
+  }
+
+  paper-checkbox[checked] {
+    --paper-checkbox-label-color: var(--search-selected-color);
+  }
+
+</style>
+
+
+<filter-card heading="Is">
+
+	<chain-selector slot="chain-btn" 
+									on-chain-selector-selected-changed="__chainSelected">
+	</chain-selector>
+
+	<div id="content">		
+		<paper-checkbox on-checked-changed="__foilCheckedChanged">
+			Foil
+		</paper-checkbox>		
+		<paper-checkbox on-checked-changed="__standardCheckedChanged">
+			Not Foil
+		</paper-checkbox>		
+		<paper-checkbox on-checked-changed="__commanderCheckedChanged">
+			Commander
+		</paper-checkbox>
+	</div>
+
+</filter-card>

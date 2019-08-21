@@ -1,0 +1,37 @@
+
+<style>
+
+	:host {
+		display: 				 flex;
+		justify-content: center;
+		align-items: 		 center;
+		position: 			 relative;
+	}
+
+	paper-icon-button {
+		--paper-icon-button-ink-color: var(--secondary-text-color);
+	}
+
+	iron-icon {
+		position: 			absolute;
+		pointer-events: none;
+		transition:  		transform 0.3s var(--spriteful-ease);
+	}
+
+	.asc {
+		transform: none;
+	}
+
+	.desc {
+		transform: rotate(180deg);
+	}
+
+</style>
+
+
+<paper-icon-button id="direction-btn" 
+									 on-click="__directionBtnClicked">
+</paper-icon-button>
+<iron-icon class$="[[direction]]" 
+					 icon="asg-icons:arrow-downward">
+</iron-icon>

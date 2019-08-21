@@ -1,0 +1,63 @@
+
+<style>
+
+	:host {
+		display: block;
+	}
+
+	#content {
+		display: 							 grid;
+		grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+		align-items: center;
+		width: 	 		 100%;
+		padding: 		 8px 0px;
+	}
+
+  paper-checkbox {
+  	padding: 16px 8px;
+    --paper-checkbox-unchecked-color:     var(--dark-text-color);
+    --paper-checkbox-unchecked-ink-color: var(--secondary-text-color);
+    --paper-checkbox-checked-color:     	var(--search-selected-color);
+    --paper-checkbox-checked-ink-color: 	var(--search-selected-color);
+    --paper-checkbox-label-color:       	var(--secondary-text-color);
+  }
+
+  paper-checkbox[checked] {
+    --paper-checkbox-label-color: var(--search-selected-color);
+  }
+
+  .label {
+  	display: 		 flex;
+  	align-items: center;
+  	line-height: 1;
+  }
+
+	iron-icon {
+		min-width: 		24px; /* for flex .card-content slot parent */
+		margin-right: 4px;
+	}
+
+</style>
+
+
+<filter-card heading="Color">
+
+	<chain-selector slot="chain-btn" 
+									on-chain-selector-selected-changed="__chainSelected">
+	</chain-selector>
+
+	<div id="content">
+		<template is="dom-repeat" 
+							items="[[_items]]">
+			<paper-checkbox on-checked-changed="__checkboxCheckedChanged">
+				<div class="label">
+					<iron-icon hidden="[[__computeIconHidden(item.icon)]]" 
+										 src="[[__computeIcon(item.icon)]]">
+					</iron-icon>
+					[[item.name]]
+				</div>
+			</paper-checkbox>
+		</template>
+	</div>
+
+</filter-card>

@@ -1,0 +1,75 @@
+
+<style>
+
+	:host {
+		display: block;
+		--selected-color: var(--app-primary-color);
+		--listbox-mixin: {
+			display: block;
+		};
+	}
+
+	paper-menu-button {
+		padding: 0px;
+		--paper-menu-button-dropdown-background: var(--app-body-color);
+		--paper-menu-button-dropdown: {
+			margin:  8px;
+		};
+	}
+
+	#trigger-wrapper {
+		display: 				 flex;
+		justify-content: center;
+		align-items: 		 center;
+		position: 			 relative;
+	}
+
+	paper-listbox {
+		@apply --listbox-mixin;
+		padding: 8px;
+		background-color: var(--app-body-color);
+		color: 						var(--dark-text-color);
+	}
+
+	paper-item,
+	#items-slot::slotted(*) {
+		border-radius: 3px;
+	}
+
+	paper-item.iron-selected,
+	#items-slot::slotted(:focus),
+	#items-slot::slotted(.iron-selected) {
+		outline: none;
+		background-color: var(--app-background-color);
+		color: 						var(--selected-color);
+	}
+
+</style>
+
+
+<paper-menu-button close-on-activate 
+									 dynamic-align 
+									 horizontal-align="[[align]]"
+									 vertical-align="[[verticalAlign]]">
+
+	<div id="trigger-wrapper"
+			 slot="dropdown-trigger">
+	  <slot name="trigger">
+			<paper-item>[[value]]</paper-item>
+		</slot>
+	</div>
+
+	<paper-listbox attr-for-selected="[[attrForSelected]]" 
+  							 on-selected-changed="__selected" 
+  							 slot="dropdown-content">
+	 	<slot id="items-slot" name="items">
+		  <template is="dom-repeat" 
+		  					items="[[items]]">
+	    	<paper-item value="[[item]]">
+	    		[[item]]
+	    	</paper-item>
+		  </template>
+		</slot>
+  </paper-listbox>
+
+</paper-menu-button>

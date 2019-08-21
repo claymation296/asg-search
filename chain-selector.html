@@ -1,0 +1,31 @@
+
+<style>
+
+	:host {
+		display: 			 block;		
+    border-radius: 4px;
+    overflow:  		 hidden;
+	}
+
+	.and {		
+		background-color: var(--search-selected-color);
+    color: 						var(--constant-light-text);
+	}
+
+	.or {
+		background-color: var(--app-dark-color);
+    color: 						var(--constant-light-text);
+	}
+
+	.not {
+		background-color: var(--app-accent-color);
+    color: 						var(--constant-dark-text);
+	}
+
+</style>
+
+
+<operator-selector class$="[[_selected]]"
+									 operators="[[_chains]]" 
+									 on-operator-selector-selected-changed="__menuValueChanged">
+</operator-selector>

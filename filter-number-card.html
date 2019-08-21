@@ -1,0 +1,22 @@
+
+<style>
+
+	:host {
+		display: block;
+	}
+
+</style>
+
+
+<filter-card heading="[[title]]">
+
+	<chain-selector slot="chain-btn" 
+									on-chain-selector-selected-changed="__chainSelected">
+	</chain-selector>
+
+	<keyword-number-input keyword="[[keyword]]"
+												name="[[name]]"
+	                      on-keyword-number-input-value-changed="__numberChanged">
+	</keyword-number-input>
+	
+</filter-card>

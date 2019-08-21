@@ -1,0 +1,66 @@
+
+<style>
+
+	:host {
+		display: block;
+		height:  100%;
+	}
+
+	paper-card {
+    height: 				  100%;
+    display: 				  flex;
+    flex-direction:   column;
+    justify-content:  space-between;
+    position: 				relative;
+    background-color: transparent;
+    border-radius:    8px;
+    overflow:  				hidden;
+    --paper-card-header-color: currentcolor;
+	}
+	/* 
+		cannot adjust opacity of parent because
+		it affects child dropdown menus, 
+		which should be solid color,
+		so create a faux background element
+		that can have opacity set without affecting other elemets
+	*/
+	#background {
+		position: absolute;
+		top: 			0px;
+		right: 		0px;
+		bottom: 	0px;
+		left: 		0px;
+		opacity: 	0.97;
+		background-color: var(--app-background-color);
+		z-index: -1;
+	}
+
+	.card-content {
+		display: 				 flex;
+		justify-content: space-between;
+		position:  			 relative;
+    padding: 				 0px 8px 8px 8px;
+	}
+
+	#chain-btn {
+		position: 				absolute;
+		right: 						16px;
+		top: 							16px;
+	}
+
+</style>
+
+
+<paper-card heading="[[heading]]">
+
+	<div id="background"></div>
+
+	<div class="card-content">
+		<slot></slot>
+	</div>
+
+	<div id="chain-btn">		
+		<slot name="chain-btn"></slot>
+	</div>
+	
+</paper-card>

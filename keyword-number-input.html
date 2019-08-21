@@ -1,0 +1,55 @@
+
+<style>
+
+	:host {
+		display: 		 flex;
+		align-items: center;
+    padding:     0px 8px;
+	}
+
+  #name {
+    color: var(--secondary-text-color);
+  }
+
+	paper-input {
+		position: relative;
+		top:  		2px;
+		--paper-input-container: {
+      width: 40px;
+    };
+    --paper-input-container-focus-color: var(--app-primary-color);
+    --paper-input-container-underline-focus: { /* broken paper-input fix (3.0.0-pre.1) */
+      transition: transform 0.25s ease-in-out;
+      width:      40px;
+    };
+    --paper-input-container-underline: {
+      display: none;
+    };
+    --paper-input-container: {
+      padding: 0px;
+    };
+    --paper-input-container-label: {
+      display: none;
+    };
+    --paper-input-container-input: {
+      width:      40px;
+      text-align: center;
+      color:      var(--dark-text-color);
+    };
+	}
+
+</style>
+
+
+<div id="name">[[name]]</div>
+
+<operator-selector on-operator-selector-selected-changed="__menuValueChanged"></operator-selector>
+
+<paper-input type="tel"
+             allowed-pattern="[0-9.]"
+             auto-validate
+             maxlength="10"
+             no-label-float
+             on-value-changed="__inputChanged"
+             value="[[number]]">
+</paper-input>

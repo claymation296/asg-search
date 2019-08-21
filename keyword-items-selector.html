@@ -1,0 +1,46 @@
+
+<style>
+
+	:host {
+		display: 		 flex;
+		align-items: center;
+	}
+
+	app-dropdown-menu {
+		--listbox-mixin: {
+			display: 							 grid;
+			grid-template-columns: 1fr 1fr;
+			grid-column-gap: 			 8px;
+		};
+	}
+
+	#trigger {
+		min-width: 48px; /* better touch surface for 'All' */
+		padding: 	 8px;
+		color: 	 	 var(--search-selected-color);
+	}
+
+	.list-item {
+		padding: 8px;
+	}
+
+</style>
+
+
+<div id="name">[[name]]</div>
+
+<app-dropdown-menu attr-for-selected="item"
+									 items="[[items]]"
+									 on-app-dropdown-menu-value-changed="__menuValueChanged">
+	<keyword-item id="trigger"
+								item="[[selected]]" 
+								slot="trigger">
+	</keyword-item>
+	<template is="dom-repeat" 
+		  			items="[[items]]">
+  	<keyword-item class="list-item"
+  								item="[[item]]"
+		  						slot="items">
+		</keyword-item>
+  </template>
+</app-dropdown-menu>

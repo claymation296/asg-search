@@ -1,0 +1,22 @@
+
+<style>
+	
+	:host {
+    display: 		 inline-flex;
+    align-items: center;
+		position: 	 relative;
+		min-height:  32px;
+	}
+
+	iron-icon {
+		margin-right: 4px;
+	}
+
+</style>
+
+
+<iron-icon hidden="[[_iconHidden]]" 
+					 icon="[[_icon]]">
+</iron-icon>
+<span>[[item.name]]</span>
+<paper-ripple></paper-ripple>

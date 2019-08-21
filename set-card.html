@@ -1,0 +1,25 @@
+
+<style>
+
+	:host {
+		display: block;
+	}
+
+	set-item {
+		color: var(--search-selected-color);
+	}
+
+</style>
+
+
+<filter-card heading="Set">	
+
+	<chain-selector slot="chain-btn" 
+									on-chain-selector-selected-changed="__chainSelected">
+	</chain-selector>
+
+	<set-item item="[[selected]]" 
+						on-click="__itemClicked">
+	</set-item>
+	
+</filter-card>

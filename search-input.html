@@ -1,0 +1,110 @@
+
+<style>
+
+  :host {
+    display:          flex;
+    align-items:      center;
+    justify-content:  center;
+    height:           64px;
+    width:            100%;
+    background-color: var(--app-primary-color);
+    --input-width: 		100%;
+  }
+
+  #search-close-wrapper {
+    width:          var(--input-width);
+    max-width:      236px; /* match main logo width */
+    position:       relative;
+    pointer-events: none;
+  }
+  
+  #searchInput {
+    font-size: 16px;
+  }
+ 
+  paper-input {
+    @apply --single-line-truncate-mixin;
+    padding:          0px 8px;
+    background-color: var(--app-background-color);
+    border-radius:    8px;
+    height:           40px;
+    display:          flex;
+    align-items:      center;
+    pointer-events:   auto;
+    --paper-input-container-color:       var(--app-accent-color);
+    --paper-input-container-input-color: var(--dark-text-color);
+    --paper-input-container-focus-color: transparent;
+    --paper-input-container-underline: { 
+      display: none;
+    };
+    --paper-input-container: { 
+      display:     flex;
+      align-items: center;
+      width:       calc(100% - 40px); /* minus the 'X' button */
+      padding: 		 8px;
+    };
+    --paper-input-container-shared-input-style: {
+      width:         100%;
+      white-space:   nowrap;
+      text-overflow: ellipsis;
+    };
+    --paper-input-container-label: {
+      position:  absolute;
+      top:       0px;
+      font-size: 16px;
+    };
+  }
+
+  iron-icon {
+    color: var(--app-primary-color);
+  }
+
+  .hide-search-clear-btn {
+    opacity: 0;
+  }
+
+  #close-button {
+    color:          var(--app-primary-color);
+    pointer-events: auto;
+    position:       absolute;
+    top:            0px;
+    right:          0px;
+  }
+
+</style>
+
+
+<iron-a11y-keys id="a11y" 
+                target="[[_a11yTarget]]" 
+                keys="enter"
+                on-keys-pressed="__a11yOnEnter">
+</iron-a11y-keys>
+
+<div id="search-close-wrapper">
+  <paper-input id="searchInput"
+               autocomplete
+               autocorrect
+               autocapitalize
+               label="Search Magic Cards"
+               no-label-float
+               tabindex="0"
+               value="[[search]]"
+               on-focused-changed="__onFocusPlaceSearchToolbar"
+               on-value-changed="__searchInputChanged"
+               aria-describedby="a11y">
+  </paper-input>
+  <paper-icon-button id="close-button"
+                     icon="app-icons:close" 
+                     slot="suffix" 
+                     class$="[[__computeHideSearchClearButton(search)]]"
+                     on-click="__clearSearchButtonClicked"
+                     aria-label="Clear search button">
+  </paper-icon-button>
+</div>
+
+<search-autocomplete id="autocomplete" 
+                     location="[[location]]" 
+                     search="[[_searchAndLocation]]"
+                     threshold="[[threshold]]"
+                     is-buylist="[[isBuylist]]">                       
+</search-autocomplete>

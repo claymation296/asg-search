@@ -1,0 +1,89 @@
+
+<style>
+
+	:host {
+		position:         absolute;
+		top: 			        100%;
+		right: 		        0px;
+		left: 		        0px;
+    background-color: transparent;
+    margin:           auto;
+	}
+
+  .list-animators {
+    transform-origin: center top;
+  }
+
+  .x-wrapper {
+    transition:       transform 0.2s var(--spriteful-ease, ease-out);
+    transform:        translateY(0px) scale(0, 0.1); 
+    background-color: transparent;    
+  }
+
+  .y-wrapper {     
+    transition:       transform 0.3s var(--spriteful-ease, ease-out);
+    transform:        translateY(0px) scale(1, 0.1);
+    background-color: var(--app-background-color);
+    box-shadow:       0 2px 2px 0 rgba(0, 0, 0, 0.14),
+                      0 1px 5px 0 rgba(0, 0, 0, 0.12),
+                      0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  }
+
+  .delay {
+    transition-delay: 0.05s;
+  }
+
+  .list {
+    width:      100%;
+    padding:    0px;
+    transition: transform 0.2s var(--spriteful-ease, ease-out), opacity 0.1s ease-in;
+    transform:  translateY(8px) scale(1, 1);
+    opacity:    0;
+    color:      var(--dark-text-color);
+    --paper-listbox-background-color: var(--app-background-color);
+  }
+
+  .list-delayed-transition {    
+    transition: transform 0.3s var(--spriteful-ease, ease-out) 0.2s, opacity 0.1s ease-in 0.3s;
+  }
+
+  .open-list {
+    transform: translateY(0px) scale(1, 1);
+    opacity:   1;
+  }
+
+  @media only screen and (min-width: 768px) {
+
+    :host {
+      width: 526px;
+    }
+
+  }
+
+</style>
+
+
+<div id="xWrapper" 
+		 class="list-animators x-wrapper">
+  <div id="yWrapper" 
+  		 class="list-animators y-wrapper">
+    <paper-listbox id="autoCompleteList" 
+    							 class="list" 
+    							 role="listbox">
+
+      <template is="dom-repeat" 
+      					items="[[_autocomplete]]" 
+      					as="str"
+                role="option"
+                on-dom-change="__domChanged">
+
+        <paper-item class="item" 
+        						on-click="__itemClicked">
+        	[[str]]
+        </paper-item>
+        
+      </template>
+
+    </paper-listbox>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+
+<style>
+
+	:host {
+		display: block;
+	}
+
+	paper-radio-group {
+		display: 							 grid;
+		grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+		width: 	 100%;
+		padding: 8px 0px;
+	}
+
+  paper-radio-button {
+  	--paper-radio-button-checked-color: 		  var(--search-selected-color);
+  	--paper-radio-button-checked-ink-color:   var(--search-selected-color);
+    --paper-radio-button-unchecked-color:     var(--dark-text-color);
+    --paper-radio-button-unchecked-ink-color: var(--secondary-text-color);
+    --paper-radio-button-label-color:         var(--secondary-text-color);
+  }
+
+  paper-radio-button[checked] {
+    --paper-radio-button-label-color: var(--search-selected-color);
+  }
+
+</style>
+
+
+<filter-card heading="Search Type">
+
+	<paper-radio-group id="content"
+										 selected="[[_value]]"
+										 on-selected-changed="__radioSelectedChanged">		
+		<paper-radio-button name="name">
+			Name
+		</paper-radio-button>		
+		<paper-radio-button name="oracle">
+			Oracle Text
+		</paper-radio-button>		
+		<paper-radio-button name="type">
+			Type
+		</paper-radio-button>
+	</paper-radio-group>
+
+</filter-card>

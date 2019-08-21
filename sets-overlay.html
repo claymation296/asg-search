@@ -1,0 +1,74 @@
+
+<style>
+
+	#content {
+		margin-top: 32px;
+		min-height: calc(100vh - 96px);
+		--search-selected-color: var(--app-primary-color);
+	}
+
+	section {		
+		display: 				 flex;
+		justify-content: center;
+	}
+
+	#sort-filter-section {
+		@apply --bottom-divider-mixin;
+		padding-bottom:  40px;
+	}
+
+	paper-listbox {
+		display: 							 grid;
+		grid-template-columns: repeat(auto-fit, minmax(288px, 1fr));
+		width: 								 calc(100% - 32px);
+		max-width:  					 1280px;
+    margin-top: 					 24px;
+		padding: 							 16px 0px;
+		background-color: 		 inherit;
+    color: 								 currentColor;
+	}
+
+	set-item.iron-selected {
+		outline: 					none;
+		background-color: var(--app-body-color);
+		color: 						var(--search-selected-color);
+	}
+  
+</style>
+
+
+<app-header-overlay id="overlay"
+                    header-size="1"
+                    prebuilt-animation="from-right"
+                    reveal-header
+                    title="Sets">
+
+  <div id="content" slot="content">
+
+  	<section id="sort-filter-section">
+		  <sets-sort-filter on-sets-sort-filter-value-changed="__sortFilterChanged"></sets-sort-filter>
+		</section>
+
+		<section>
+		  <paper-listbox attr-for-selected="item"
+		  							 on-selected-changed="__itemSelected">
+		  	<set-item item="[[_all]]"></set-item>
+
+		  	<template id="repeater"
+		  						is="dom-repeat"
+					  			items="[[_items]]"
+					  			delay="300"
+					  			filter="{{__filterFn(_filter, _prop)}}"
+					  			initial-count="30"
+					  			sort="{{__sortFn(_direction, _prop)}}"
+					  			target-framerate="60">
+			  	<set-item item="[[item]]"></set-item>
+			  </template>	  
+
+		  </paper-listbox>
+		</section>
+
+	  <app-spinner id="spinner"></app-spinner>
+	</div>
+
+</app-header-overlay>

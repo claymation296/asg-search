@@ -1,0 +1,74 @@
+
+<style>
+	
+	:host {
+    display: 		 flex;
+    align-items: center;
+		position: 	 relative;
+		min-width: 	 48px; /* larger touch surface for 'All' */
+		min-height:  32px;
+		padding:  	 16px 8px;
+		--mask-svg:  #;
+	}
+
+	*[hidden] {
+		display: none;
+	}
+
+	#set-icon {
+		/* 
+			using mask in order to be able to change
+			the color of the icon when selected
+			since the svg from scryfall is always black
+		*/
+		-webkit-mask: 			 	 var(--mask-svg);
+		mask: 							 	 var(--mask-svg);
+		-webkit-mask-repeat: 	 no-repeat;
+		mask-repeat: 				 	 no-repeat;
+		-webkit-mask-position: center;
+    mask-position: 				 center;
+		height: 						 	 48px;
+		width:  						 	 48px;
+		margin-right: 			 	 8px;
+		background-color: 	 	 currentColor;
+	}
+
+	#secondary {
+		color: 		 var(--secondary-text-color);
+		font-size: 14px;
+	}
+
+	#foil-only {
+		position: 				relative;
+		bottom:  					2px;
+		border-radius: 		4px;
+		font-size: 				10px;
+		padding: 					4px;
+		margin-left: 			4px;
+		background-color: var(--app-dark-color);
+		color: 						var(--constant-light-text);
+	}
+
+</style>
+
+
+<div id="set-icon" 
+		 hidden="[[_iconHidden]]">
+</div>
+<span>
+	<div>[[item.name]]</div>
+	<div id="secondary">
+		<span hidden="[[!item.released_at]]">
+			[[item.released_at]]
+		</span>
+		<span hidden="[[!item.card_count]]"> ∙ </span>
+		<span hidden="[[!item.card_count]]">
+			[[item.card_count]] cards
+		</span>
+		<span id="foil-only" 
+				 	hidden="[[!item.foil_only]]">
+			Foil only
+		</span>
+	</div>	
+</span>
+<paper-ripple></paper-ripple>

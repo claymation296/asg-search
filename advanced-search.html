@@ -1,0 +1,49 @@
+
+<style>
+
+	search-input {
+		background-color: var(--app-dark-color);
+		--input-width: 		unset;
+	}
+
+	paper-fab {
+		background-color: var(--app-accent-color);
+		color: 						var(--constant-dark-text);
+	}
+  
+</style>
+
+
+<app-header-overlay id="overlay"
+										disable-auto-sticky
+										disable-condense
+										disable-warnings
+                    header-size="2"
+                    prebuilt-animation="from-right"
+                    reveal-header
+                    title="Advanced Search"
+                    top-title>
+
+  <search-input slot="bottom-toolbar-tabs-slot"
+  							location="advanced" 
+  							search="[[search]]"
+  							on-search-input-value-changed="__searchChanged"
+  							on-search-input-search="__searchInputSearch">
+  </search-input>
+
+  <paper-fab slot="fab-slot"
+  					 icon="app-icons:search" 
+  					 on-click="__fabClicked">
+  </paper-fab>
+
+  <advanced-search-content id="content"
+  												 slot="content"
+  												 search="[[search]]"
+  												 selected-set="[[_selectedSet]]"
+  												 on-advanced-search-content-value-changed="__advancedSearchChanged">
+  </advanced-search-content>
+
+</app-header-overlay>
+
+
+<sets-overlay id="setsOverlay"></sets-overlay>

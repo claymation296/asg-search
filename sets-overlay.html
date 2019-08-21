@@ -1,10 +1,13 @@
 
 <style>
 
+	:host {		
+		--search-selected-color: var(--app-primary-color);
+	}
+
 	#content {
 		margin-top: 32px;
 		min-height: calc(100vh - 96px);
-		--search-selected-color: var(--app-primary-color);
 	}
 
 	section {		
@@ -58,9 +61,9 @@
 		  						is="dom-repeat"
 					  			items="[[_items]]"
 					  			delay="300"
-					  			filter="{{__filterFn(_filter, _prop)}}"
+					  			filter="[[__filterFn(_filter, _prop)]]"
 					  			initial-count="30"
-					  			sort="{{__sortFn(_direction, _prop)}}"
+					  			sort="[[__sortFn(_direction, _prop)]]"
 					  			target-framerate="60">
 			  	<set-item item="[[item]]"></set-item>
 			  </template>	  

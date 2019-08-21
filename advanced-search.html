@@ -1,46 +1,55 @@
 
 <style>
 
-	search-input {
-		background-color: var(--app-dark-color);
-		--input-width: 		unset;
-	}
+  search-input {
+    background-color:  var(--app-dark-color);
+    --input-flex-grow: 0;
+  }
 
-	paper-fab {
-		background-color: var(--app-accent-color);
-		color: 						var(--constant-dark-text);
-	}
+  paper-fab {
+    background-color: var(--app-accent-color);
+    color:            var(--constant-dark-text);
+  }
+
+  advanced-search-content,
+  sets-overlay {
+    --search-selected-color: var(--app-accent-color);    
+    --search-accent-color:   var(--app-light-color);
+  }
   
 </style>
 
 
 <app-header-overlay id="overlay"
-										disable-auto-sticky
-										disable-condense
-										disable-warnings
+                    disable-auto-sticky
+                    disable-condense
+                    disable-warnings
                     header-size="2"
                     prebuilt-animation="from-right"
                     reveal-header
                     title="Advanced Search"
                     top-title>
 
-  <search-input slot="bottom-toolbar-tabs-slot"
-  							location="advanced" 
-  							search="[[search]]"
-  							on-search-input-value-changed="__searchChanged"
-  							on-search-input-search="__searchInputSearch">
+  <search-input id="search"
+                slot="bottom-toolbar-tabs-slot"
+                disable-auto-position
+                hide-buttons
+                location="advanced" 
+                search="[[search]]"
+                on-search-input-value-changed="__searchChanged"
+                on-search-input-search="__searchInputSearch">
   </search-input>
 
   <paper-fab slot="fab-slot"
-  					 icon="app-icons:search" 
-  					 on-click="__fabClicked">
+             icon="app-icons:search" 
+             on-click="__fabClicked">
   </paper-fab>
 
   <advanced-search-content id="content"
-  												 slot="content"
-  												 search="[[search]]"
-  												 selected-set="[[_selectedSet]]"
-  												 on-advanced-search-content-value-changed="__advancedSearchChanged">
+                           slot="content"
+                           search="[[search]]"
+                           selected-set="[[_selectedSet]]"
+                           on-advanced-search-content-value-changed="__advancedSearchChanged">
   </advanced-search-content>
 
 </app-header-overlay>

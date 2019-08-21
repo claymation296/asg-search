@@ -13,7 +13,7 @@ import {
 import {
   listen,
   schedule
-} 	              from '@spriteful/utils/utils.js';
+}                 from '@spriteful/utils/utils.js';
 import htmlString from './advanced-search.html';
 import '@spriteful/app-icons/app-icons.js';
 import '@spriteful/app-header-overlay/app-header-overlay.js';
@@ -37,16 +37,16 @@ class SpritefulAdvancedSearch extends SpritefulElement {
 
       _advanced: String,
 
-    	_selectedSet: Object
+      _selectedSet: Object
 
     };
   }
 
 
   static get observers() {
-  	return [
-  		'__advancedChanged(_advanced)'
-  	];
+    return [
+      '__advancedChanged(_advanced)'
+    ];
   }
   
 
@@ -54,30 +54,31 @@ class SpritefulAdvancedSearch extends SpritefulElement {
     super.connectedCallback();
 
     listen(this, 'set-card-open-sets-overlay',    this.__openSetsOverlay.bind(this));
-    listen(this, 'sets-overlay-selected-changed', this.__setSelected.bind(this));    
+    listen(this, 'sets-overlay-selected-changed', this.__setSelected.bind(this));
+    listen(this.$.overlay, 'overlay-reset',       this.__reset.bind(this));   
   }
 
 
   __advancedChanged(value) {
-  	this.fire('advanced-search-value-changed', {value});
+    this.fire('advanced-search-value-changed', {value});
   }
 
   // glue between search-input and content
   __searchChanged(event) {
-  	event.stopImmediatePropagation();
+    event.stopImmediatePropagation();
     event.stopPropagation();
-  	this.search = event.detail.value;
+    this.search = event.detail.value;
   }
 
 
-  __searchInputSearch(event) {  	
+  __searchInputSearch(event) {    
     event.stopImmediatePropagation();
     event.stopPropagation();
     this.__fireSearch();
   }
 
   // from advanced-search-content
-  __advancedSearchChanged(event) {  		
+  __advancedSearchChanged(event) {      
     event.stopImmediatePropagation();
     event.stopPropagation();
     this._advanced = event.detail.value;
@@ -85,42 +86,49 @@ class SpritefulAdvancedSearch extends SpritefulElement {
 
 
   async __openSetsOverlay(event) {
-  	event.stopImmediatePropagation();
+    event.stopImmediatePropagation();
     event.stopPropagation();
     await import(
-    	/* webpackChunkName: 'sets-overlay' */ 
-    	'./sets-overlay.js'
+      /* webpackChunkName: 'sets-overlay' */ 
+      './sets-overlay.js'
     );
     this.$.setsOverlay.open();
   }
 
   // glue between content and sets overlay
   __setSelected(event) {
-  	event.stopImmediatePropagation();
+    event.stopImmediatePropagation();
     event.stopPropagation();
     this._selectedSet = event.detail.selected;
   }
 
   // enter button on search input focus or paper-fab click
   async __fireSearch() {
-  	await this.$.overlay.close();
-  	this.fire('search-input-search', {
-      str: 			 this._advanced,
+    await this.$.search.closeAutoComplete();
+    await this.$.overlay.close();
+    await schedule();
+    this.fire('search-input-search', {
+      str:       this._advanced,
       location: 'advanced'
     });
   }
 
 
   async __fabClicked() {
-  	try {
-  		await this.clicked();
-  		if (!this._advanced || this._advanced.length < 2) { return; }    
-  		this.__fireSearch();
-  	}
-  	catch (error) {
-  		if (error === 'click debounced') { return; }
-  		console.error(error);
-  	}
+    try {
+      await this.clicked();
+      if (!this._advanced || this._advanced.length < 2) { return; }    
+      this.__fireSearch();
+    }
+    catch (error) {
+      if (error === 'click debounced') { return; }
+      console.error(error);
+    }
+  }
+
+
+  __reset() {
+    this.$.content.reset();
   }
 
 

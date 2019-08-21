@@ -25,12 +25,21 @@ class SpritefulSearchInput extends SpritefulElement {
 
   static get properties() {
     return {
+
+      disableAutoPosition: Boolean,
+
+      hideButtons: {
+        type: Boolean,
+        value: false
+      },
+
+      isBuylist: Boolean,
       // used to open shop overlay if input is in home-view
       location: String,
 
       search: {
-      	type: String,
-      	observer: '__searchChanged'
+        type: String,
+        observer: '__searchChanged'
       },
 
       threshold: Number,
@@ -54,13 +63,14 @@ class SpritefulSearchInput extends SpritefulElement {
 
 
   __searchChanged(newVal, oldVal) {
-  	if (newVal === oldVal) { return; }
+    if (newVal === oldVal) { return; }
     this.fire('search-input-value-changed', {value: newVal});
   }
 
   // puts search toolbar at top of screen
   async __onFocusPlaceSearchToolbar(event) {
-    try {      
+    try {
+      if (this.disableAutoPosition) { return; }  
       if (event.detail.value) {
         await this.clicked();
         await schedule();
@@ -75,26 +85,49 @@ class SpritefulSearchInput extends SpritefulElement {
   }
 
 
-  async __a11yOnEnter() {
+  async __search() {
     try {
-      const {value} = this.$.searchInput;
-      if (!value || value.length < 2) { return; }    
+      if (!this.search || this.search.length < 2) { return; }    
       await this.clicked();
-      await this.debounce('asg-cms-inventory-card-search-debounce', 300); 
+
+      // is this extra debounce needed? this.clicked debounces internally
+      // await this.debounce('asg-cms-inventory-card-search-debounce', 300); 
 
       this.$.searchInput.blur();
       await schedule();
       this.closeAutoComplete();
 
       if (this.threshold) {
-        const thresholdSearch = `usd>=${this.threshold} ${value}`
+        const thresholdSearch = `usd>=${this.threshold} ${this.search}`;
         this.__fireSearch(thresholdSearch);
         return;
       }
-      this.__fireSearch(value);
+      this.__fireSearch(this.search);
     }
     catch (error) {
       if (error === 'click debounced' || error === 'debounced') { return; }
+      console.error(error);
+    }
+  }
+
+
+  __a11yOnEnter() {
+    this.__search();
+  }
+
+
+  __searchButtonClicked() {
+    this.__search();
+  }
+
+
+  async __moreButtonClicked() {
+    try {    
+      await this.clicked();
+      this.fire('search-input-open-advanced-search');
+    }
+    catch (error) {
+      if (error === 'click debounced') { return; }
       console.error(error);
     }
   }
@@ -104,12 +137,11 @@ class SpritefulSearchInput extends SpritefulElement {
     try {
       await this.clicked();
       this.$.searchInput.blur();
-      this.search          		 = '';
+      this.search              = '';
       this.$.searchInput.value = '';
       this.closeAutoComplete();
       await schedule();
       this.$.searchInput.focus();
-      // listener in shop.js
       this.fire('search-input-clear');
     }
     catch (error) {
@@ -121,16 +153,26 @@ class SpritefulSearchInput extends SpritefulElement {
   // For autocomplete to make list, called from paper input
   __searchInputChanged(event) {
     const {value} = event.detail;
-    this.search 	= value;
+    this.search   = value;
     this._searchAndLocation = {
       value,
       location: this.location
     };
   }
 
+
+  __autocompleteSelected(event) {    
+    event.stopImmediatePropagation();
+    event.stopPropagation();
+    const {selected} = event.detail;
+    const exact      = this.isBuylist ? false : true;
+    this.__fireSearch(selected, exact);
+  }
+
   // fired to spriteful app to open shop
-  __fireSearch(str) {
+  __fireSearch(str, exact = false) {
     this.fire('search-input-search', {
+      exact,
       str,
       location: this.location
     });
@@ -138,7 +180,7 @@ class SpritefulSearchInput extends SpritefulElement {
 
 
   closeAutoComplete() {
-    this.$.autocomplete.close();
+    return this.$.autocomplete.close();
   }
 
 }

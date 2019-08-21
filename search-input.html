@@ -2,35 +2,32 @@
 <style>
 
   :host {
-    display:          flex;
-    align-items:      center;
-    justify-content:  center;
-    height:           64px;
-    width:            100%;
-    background-color: var(--app-primary-color);
-    --input-width: 		100%;
+    display:           flex;
+    align-items:       center;
+    justify-content:   center;
+    height:            64px;
+    padding:           0px 16px;
+    background-color:  var(--app-primary-color);
+    --input-flex-grow: 1;
   }
 
   #search-close-wrapper {
-    width:          var(--input-width);
-    max-width:      236px; /* match main logo width */
+    flex-grow:      var(--input-flex-grow);
+    max-width:      296px;
     position:       relative;
     pointer-events: none;
-  }
-  
-  #searchInput {
-    font-size: 16px;
   }
  
   paper-input {
     @apply --single-line-truncate-mixin;
     padding:          0px 8px;
-    background-color: var(--app-background-color);
     border-radius:    8px;
     height:           40px;
     display:          flex;
     align-items:      center;
-    pointer-events:   auto;
+    pointer-events:   auto;    
+    font-size:        16px;
+    background-color: var(--app-background-color);
     --paper-input-container-color:       var(--app-accent-color);
     --paper-input-container-input-color: var(--dark-text-color);
     --paper-input-container-focus-color: transparent;
@@ -41,7 +38,7 @@
       display:     flex;
       align-items: center;
       width:       calc(100% - 40px); /* minus the 'X' button */
-      padding: 		 8px;
+      padding:     8px;
     };
     --paper-input-container-shared-input-style: {
       width:         100%;
@@ -69,6 +66,15 @@
     position:       absolute;
     top:            0px;
     right:          0px;
+  }
+
+  #search-buttons {
+    display:     flex;
+    margin-left: 8px;
+  }
+
+  #search-buttons[hidden] {
+    display: none;
   }
 
 </style>
@@ -102,9 +108,20 @@
   </paper-icon-button>
 </div>
 
+<div id="search-buttons" 
+     hidden="[[hideButtons]]">
+  <paper-icon-button icon="app-icons:search"
+                     on-click="__searchButtonClicked">
+  </paper-icon-button>
+  <paper-icon-button icon="app-icons:more-vert"
+                     on-click="__moreButtonClicked">
+  </paper-icon-button>
+</div>
+
 <search-autocomplete id="autocomplete" 
                      location="[[location]]" 
                      search="[[_searchAndLocation]]"
                      threshold="[[threshold]]"
-                     is-buylist="[[isBuylist]]">                       
+                     is-buylist="[[isBuylist]]"
+                     on-search-autocomplete-selected-changed="__autocompleteSelected">                       
 </search-autocomplete>

@@ -33,8 +33,8 @@ const fetchAutoComplete = str => {
   // scryfall.com text search autocomplete api 
   const query = {q: str};
   const url   = addQueryParams(
-  	'https://api.scryfall.com/cards/autocomplete', 
-  	query
+    'https://api.scryfall.com/cards/autocomplete', 
+    query
   );
   return fetchScryfallJson(url);
 };
@@ -50,18 +50,18 @@ class SearchAutocomplete extends SpritefulElement {
 
   static get properties() {
     return {
-    	
+      
       isBuylist: {
         type: Boolean, 
         value: false
       },
-    	// used to match incoming search input with
-    	// its corresponding autocomplete so
-    	// only one autocomplete runs at a time
-    	location: String,
-    	// from search-input.js
-    	// {location, value}
-    	search: Object,
+      // used to match incoming search input with
+      // its corresponding autocomplete so
+      // only one autocomplete runs at a time
+      location: String,
+      // from search-input.js
+      // {location, value}
+      search: Object,
 
       threshold: Number,
       // drives template dom-repeat
@@ -70,17 +70,17 @@ class SearchAutocomplete extends SpritefulElement {
       _closeBusy: Boolean,
 
       _openBusy: Boolean,
-    	// used to avoid infinite loops
-    	_selected: String
+      // used to avoid infinite loops
+      _selected: String
 
     };
   }
 
 
   static get observers() {
-  	return [
-  		'__searchChanged(search.*)'
-  	];
+    return [
+      '__searchChanged(search.*)'
+    ];
   }
 
 
@@ -104,12 +104,12 @@ class SearchAutocomplete extends SpritefulElement {
       // avoid infinite loop
       if (value === this._selected) { return; }
       const autocomplete = await fetchAutoComplete(value);
-      const autocompleteFirstTen = autocomplete.slice(0, 10);
+      const firstTen     = autocomplete.slice(0, 10);
       // ignore late coming autocompletes
       if (value === this._selected) { return; }
-      this._autocomplete = autocompleteFirstTen;
+      this._autocomplete = firstTen;
     }
-  	catch (error) {
+    catch (error) {
       if (error === 'debounced') { return; }
       console.error(error);
     }
@@ -120,23 +120,12 @@ class SearchAutocomplete extends SpritefulElement {
     try {
       await this.clicked();
       const {str} = event.model;
-      if (this.isBuylist) {
-        const newStr = `usd>=${this.threshold} ${str}`
-        await this.close();
-        this.fire('search-autocomplete-string-selected', {
-          exact:    false, // must be false or will delete data 
-          location: this.location,
-          str: 			newStr
-         });
-        return;
-      }
-      this._selected = str;      
+      const selected = this.isBuylist ? 
+                        `usd>=${this.threshold} ${str}` :
+                         str;
+      this._selected = selected;      
       await this.close();
-      this.fire('search-autocomplete-string-selected', {
-        exact:    true,
-        location: this.location,
-        str
-      });
+      this.fire('search-autocomplete-selected-changed', {selected});
     }
     catch (error) {
       if (error === 'click debounced') { return; }
@@ -150,9 +139,9 @@ class SearchAutocomplete extends SpritefulElement {
       await this.debounce('search-autocomplete-dom-debounce', 100);
       const items = this.selectAll('.item');
       if (
-      	items 						 && 
-      	this._autocomplete && 
-      	items.length === this._autocomplete.length
+        items              && 
+        this._autocomplete && 
+        items.length === this._autocomplete.length
       ) {
         this.__open();
       }

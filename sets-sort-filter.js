@@ -26,47 +26,47 @@ class SpritefulSetsSortFilter extends SpritefulElement {
 
 
   static get properties() {
-  	return {
+    return {
 
-  		_direction: {
+      _direction: {
         type: String,
         value: 'desc'
       },
 
-  		_filter: {
+      _filter: {
         type: String,
         value: ''
       },
-  		// paper-input label
-  		_label: {
-  			type: String,
-  			value: 'Set Name',
-  			computed: '__computeLabel(_prop)'
-  		},
-  		// set property to sort/filter by
-  		_prop: {
-  			type: String,
-  			value: 'released_at'
-  		}
+      // paper-input label
+      _label: {
+        type: String,
+        value: 'Set Name',
+        computed: '__computeLabel(_prop)'
+      },
+      // set property to sort/filter by
+      _prop: {
+        type: String,
+        value: 'released_at'
+      }
 
-  	};
+    };
   }
 
 
   static get observers() {
-  	return [
-  		'__valuesChanged(_direction, _filter, _prop)'
-  	];
+    return [
+      '__valuesChanged(_direction, _filter, _prop)'
+    ];
   }
 
 
   __computeLabel(prop) {
-  	return prop === 'name' ? 'Set Name' : 'Release Year';
+    return prop === 'name' ? 'Set Name' : 'Release Year';
   }
 
 
   __selectedPropChanged(event) {
-  	this._prop = event.detail.value;
+    this._prop = event.detail.value;
   }
 
 
@@ -76,24 +76,31 @@ class SpritefulSetsSortFilter extends SpritefulElement {
 
 
   __inputValueChanged(event) {
-  	this._filter = event.detail.value;
+    this._filter = event.detail.value;
   }
 
 
   __valuesChanged(direction, filter, prop) {
-  	if (
+    if (
       typeof direction !== 'string' || 
-      typeof filter !== 'string' || 
-      typeof prop !== 'string'
+      typeof filter    !== 'string' || 
+      typeof prop      !== 'string'
     ) { return; }
 
-  	this.fire('sets-sort-filter-value-changed', {
-  		value: {
-  			direction,
-  			filter,
-  			prop
-  		}
-  	});
+    this.fire('sets-sort-filter-value-changed', {
+      value: {
+        direction,
+        filter,
+        prop
+      }
+    });
+  }
+
+
+  reset() {
+    this._prop         = 'released_at';
+    this._direction    = 'desc';
+    this.$.input.value = '';
   }
 
 }

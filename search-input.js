@@ -26,6 +26,11 @@ class SpritefulSearchInput extends SpritefulElement {
   static get properties() {
     return {
 
+      advancedActive: {
+        type: Boolean,
+        value: false
+      },
+
       disableAutoPosition: Boolean,
 
       hideButtons: {
@@ -59,6 +64,11 @@ class SpritefulSearchInput extends SpritefulElement {
 
   __computeHideSearchClearButton(search) {
     return search ? '' : 'hide-search-clear-btn';
+  }
+
+
+  __computeMoreBtnClass(active) {
+    return active ? 'advanced-active' : '';
   }
 
 

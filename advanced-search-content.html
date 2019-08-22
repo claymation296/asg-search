@@ -24,9 +24,15 @@
   }
 
   iron-image {
-    height: 100%;
-    width:  100%;
+    height:    100%;
+    width:     100%;
+    transform: scale(1.2, 1.2);
     background-color: inherit;
+  }
+
+  iron-image.scale {
+    transition: transform 30s linear 1s;
+    transform:  scale(1, 1);
   }
 
   #random-card-info {
@@ -96,7 +102,8 @@
 
 
 <div id="img-wrapper">
-  <iron-image fade 
+  <iron-image class$="[[__computeImgClass(_randomCard)]]"
+              fade 
               preload 
               sizing="cover"
               src="[[_backgroundImg]]">

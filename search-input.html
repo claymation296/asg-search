@@ -77,6 +77,10 @@
     display: none;
   }
 
+  .advanced-active {
+    color: var(--app-light-color);
+  }
+
 </style>
 
 
@@ -113,7 +117,8 @@
   <paper-icon-button icon="app-icons:search"
                      on-click="__searchButtonClicked">
   </paper-icon-button>
-  <paper-icon-button icon="app-icons:more-vert"
+  <paper-icon-button class$="[[__computeMoreBtnClass(advancedActive)]]"
+                     icon="app-icons:more-vert"
                      on-click="__moreButtonClicked">
   </paper-icon-button>
 </div>

@@ -36,7 +36,7 @@ class SpritefulAdvancedSearch extends SpritefulElement {
       search: String,
 
       _advanced: String,
-
+      // glue between content and sets overlay
       _selectedSet: Object
 
     };
@@ -56,6 +56,16 @@ class SpritefulAdvancedSearch extends SpritefulElement {
     listen(this, 'set-card-open-sets-overlay',    this.__openSetsOverlay.bind(this));
     listen(this, 'sets-overlay-selected-changed', this.__setSelected.bind(this));
     listen(this.$.overlay, 'overlay-reset',       this.__reset.bind(this));   
+  }
+
+
+  async __contentReset() {
+    if (this.$.setsOverlay.reset) { // may not have been lazy loaded yet
+      this.$.setsOverlay.reset();
+    }    
+    // make sure reset runs after 'advanced-search-value-changed'
+    await schedule();
+    this.fire('advanced-search-reset');
   }
 
 
@@ -108,7 +118,7 @@ class SpritefulAdvancedSearch extends SpritefulElement {
     await this.$.overlay.close();
     await schedule();
     this.fire('search-input-search', {
-      str:       this._advanced,
+      str:       this.search,
       location: 'advanced'
     });
   }

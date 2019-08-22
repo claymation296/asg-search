@@ -1,12 +1,12 @@
 
 /**
-	*
-	*	operator-selector
-	*
-	*	dropdown selector for scryfall search operators
-	*
-	*
-	**/
+  *
+  * operator-selector
+  *
+  * dropdown selector for scryfall search operators
+  *
+  *
+  **/
 
 import {
   SpritefulElement, 
@@ -26,16 +26,23 @@ class SpritefulOperatorSelector extends SpritefulElement {
 
 
   static get properties() {
-  	return {
+    return {
 
-  		operators: {
-  			type: Array,
-  			value: ['>=', '>', '=', '<', '<=']
-  		},
+      operators: {
+        type: Array,
+        value: ['>=', '>', '=', '<', '<=']
+      },
 
-  		selected: String,
+      selected: String,
 
-  	};
+    };
+  }
+
+
+  static get observers() {
+    return [
+      '__selectedChanged(selected)'
+    ];
   }
 
 
@@ -44,7 +51,16 @@ class SpritefulOperatorSelector extends SpritefulElement {
     event.stopPropagation();
     const {value} = event.detail;
     this.selected = value;
-    this.fire('operator-selector-selected-changed', {selected: value});
+  }
+
+
+  __selectedChanged(selected) {    
+    this.fire('operator-selector-selected-changed', {selected});
+  }
+
+
+  reset() {
+    this.$.menu.reset();
   }
 
 }

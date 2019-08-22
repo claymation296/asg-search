@@ -27,26 +27,26 @@ class SpritefulFilterNumberCard extends SpritefulElement {
   static get properties() {
     return {
 
-    	keyword: String,
+      keyword: String,
 
-    	name: String,
+      name: String,
 
-    	title: String,
+      title: String,
 
       _chain: String,
 
-    	_operator: String,
+      _operator: String,
 
-    	_selected: Number
+      _selected: Number
 
     };
   }
 
 
   static get observers() {
-  	return [
-  		'__chainAndSelectedChanged(_chain, _selected)'
-  	];
+    return [
+      '__chainAndSelectedChanged(_chain, _selected)'
+    ];
   }
 
 
@@ -60,18 +60,24 @@ class SpritefulFilterNumberCard extends SpritefulElement {
   __numberChanged(event) {
     event.stopImmediatePropagation();
     event.stopPropagation();
-  	this._selected = event.detail.value;
+    this._selected = event.detail.value;
   }
 
 
   __chainAndSelectedChanged(chain, selected) {
-  	if (typeof chain !== 'string' || !selected) { return; }
-  	this.fire('filter-number-card-value-changed', {
+    if (typeof chain !== 'string' || !selected) { return; }
+    this.fire('filter-number-card-value-changed', {
       value: {
         chain,
         ...selected
       }
-  	});
+    });
+  }
+
+
+  reset() {
+    this.$.selector.reset();
+    this.$.input.reset();
   }
 
 }

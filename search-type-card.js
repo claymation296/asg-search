@@ -37,22 +37,27 @@ class SpritefulSearchTypeCard extends SpritefulElement {
 
 
   static get observers() {
-  	return [
-  		'__valueChanged(_value)'
-  	];
+    return [
+      '__valueChanged(_value)'
+    ];
   }
 
 
   __radioSelectedChanged(event) {
     event.stopImmediatePropagation();
     event.stopPropagation();
-  	this._value = event.detail.value;
+    this._value = event.detail.value;
   }
 
 
   __valueChanged(value) {
-  	if (!value) { return; }
-  	this.fire('search-type-card-value-changed', {value});
+    if (!value) { return; }
+    this.fire('search-type-card-value-changed', {value});
+  }
+
+
+  reset() {
+    this._value = 'name';
   }
 
 }

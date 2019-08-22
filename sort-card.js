@@ -27,14 +27,14 @@ class SpritefulSortCard extends SpritefulElement {
   static get properties() {
     return {
 
-    	_direction: {
+      _direction: {
         type: String,
         value: 'asc'
       },
-    	// from keyword-items-selector
-    	_selectedItem: Object,
+      // from keyword-items-selector
+      _selectedItem: Object,
 
-      _sortItems: {
+      _items: {
         type: Array,
         value: [{
           icon: 'label',
@@ -88,16 +88,16 @@ class SpritefulSortCard extends SpritefulElement {
 
 
   static get observers() {
-  	return [
-  		'__selectedItemAndDirectionChanged(_selectedItem, _direction)'
-  	];
+    return [
+      '__selectedItemAndDirectionChanged(_selectedItem, _direction)'
+    ];
   }
 
 
   __sortItemSelected(event) {
     event.stopImmediatePropagation();
     event.stopPropagation();
-  	this._selectedItem = event.detail;
+    this._selectedItem = event.detail;
   }
 
 
@@ -109,15 +109,21 @@ class SpritefulSortCard extends SpritefulElement {
 
 
   __selectedItemAndDirectionChanged(item, direction) {
-  	if (!item || !direction) { return; }
+    if (!item || !direction) { return; }
     const {keyword, selected} = item;
-  	this.fire('sort-card-value-changed', {
-  		value: {
-  			...selected,
+    this.fire('sort-card-value-changed', {
+      value: {
+        ...selected,
         keyword,
-  			direction
-  		}
-  	});
+        direction
+      }
+    });
+  }
+
+
+  reset() {
+    this._direction = 'asc';
+    this.$.selector.reset();
   }
 
 }

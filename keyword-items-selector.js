@@ -1,12 +1,12 @@
 
 /**
-	*
-	*	keyword-items-selector
-	*
-	*	dropdown selector for scryfall search operators
-	*
-	*
-	**/
+  *
+  * keyword-items-selector
+  *
+  * dropdown selector for scryfall search operators
+  *
+  *
+  **/
 
 import {
   SpritefulElement, 
@@ -27,40 +27,40 @@ class SpritefulKeywordItemsSelector extends SpritefulElement {
 
 
   static get properties() {
-  	return {
+    return {
 
-  		items: {
-  			type: Array,
-  			value: [{
-  				icon: 'description',
-  				name: 'Name',
-  				value: 'name'
-  			}, {
-  				icon: 'logo',
-  				name: 'ASG',
-  				value: 'logo'
-  			}]
-  		},
+      items: {
+        type: Array,
+        value: [{
+          icon: 'description',
+          name: 'Name',
+          value: 'name'
+        }, {
+          icon: 'logo',
+          name: 'ASG',
+          value: 'logo'
+        }]
+      },
 
-  		keyword: String,
+      keyword: String,
 
-  		name: String,
+      name: String,
 
-  		selected: Object
+      selected: Object
 
-  	};
+    };
   }
 
 
   static get observers() {
-  	return [
-  		'__itemsKeywordSelectedChanged(items, keyword, selected)'
-  	];
+    return [
+      '__itemsKeywordSelectedChanged(items, keyword, selected)'
+    ];
   }
 
 
   __menuValueChanged(event) {
-  	event.stopImmediatePropagation();
+    event.stopImmediatePropagation();
     event.stopPropagation();
     const {value} = event.detail;
     this.selected = value;
@@ -68,11 +68,16 @@ class SpritefulKeywordItemsSelector extends SpritefulElement {
 
 
   __itemsKeywordSelectedChanged(items, keyword, selected) {
-  	if (!Array.isArray(items) || !keyword || !selected) { return; }
+    if (!Array.isArray(items) || !keyword || !selected) { return; }
     this.fire('keyword-items-selector-selected-changed', {
-    	keyword,
-    	selected
+      keyword,
+      selected
     });
+  }
+
+
+  reset() {
+    this.$.menu.reset();
   }
 
 }

@@ -24,7 +24,7 @@
 		position: 			 relative;
 	}
 
-	paper-listbox {
+	#listbox {
 		@apply --listbox-mixin;
 		padding: 8px;
 		background-color: var(--app-body-color);
@@ -59,7 +59,8 @@
 		</slot>
 	</div>
 
-	<paper-listbox attr-for-selected="[[attrForSelected]]" 
+	<paper-listbox id="listbox"
+								 attr-for-selected="[[attrForSelected]]" 
   							 on-selected-changed="__selected" 
   							 slot="dropdown-content">
 	 	<slot id="items-slot" name="items">

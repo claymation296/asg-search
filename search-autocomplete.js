@@ -10,8 +10,9 @@ import {
 import htmlString from './search-autocomplete.html';
 import '@polymer/paper-listbox/paper-listbox.js';
 import '@polymer/paper-item/paper-item.js';
+import '@polymer/paper-button/paper-button.js';
 
-// 'http://www.abx.com?x=2&y=3'
+// ie. 'http://www.abx.com?x=2&y=3'
 const addQueryParams = (url, query) => {
   const keys = Object.keys(query);
   const queryString = keys.reduce((str, key) => {
@@ -111,6 +112,18 @@ class SearchAutocomplete extends SpritefulElement {
     }
     catch (error) {
       if (error === 'debounced') { return; }
+      console.error(error);
+    }
+  }
+
+
+  async __closeBtnClicked() {
+    try {
+      await this.clicked();
+      await this.close();
+    }
+    catch (error) {
+      if (error === 'click debounced') { return; }
       console.error(error);
     }
   }

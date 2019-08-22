@@ -26,8 +26,8 @@ class SpritefulSetCard extends SpritefulElement {
 
   static get properties() {
     return {
-    	
-    	selected: Object,
+      
+      selected: Object,
 
       _chain: String,
 
@@ -43,9 +43,9 @@ class SpritefulSetCard extends SpritefulElement {
 
 
   connectedCallback() {
-  	super.connectedCallback();
+    super.connectedCallback();
 
-  	this.selected = {name: 'All'};
+    this.selected = {name: 'All'};
   }
 
 
@@ -68,14 +68,20 @@ class SpritefulSetCard extends SpritefulElement {
 
   // hit db only after user interacts with dropdown
   async __itemClicked() {
-  	try {
-	  	await this.clicked();
-	  	this.fire('set-card-open-sets-overlay');
-  	}
-  	catch (error) {
-  		if (error === 'click debounced') { return; }
-  		console.error(error);
-  	}
+    try {
+      await this.clicked();
+      this.fire('set-card-open-sets-overlay');
+    }
+    catch (error) {
+      if (error === 'click debounced') { return; }
+      console.error(error);
+    }
+  }
+
+
+  reset() {
+    this.$.selector.reset();
+    this.selected = {name: 'All'};
   }
 
 }

@@ -40,6 +40,12 @@
     font-style: italic;
   }
 
+  paper-button {
+    margin-bottom:    24px;
+    background-color: var(--app-primary-color);
+    color:            var(--constant-light-text);
+  }
+
   #max-width-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(304px, 702px));
@@ -104,55 +110,67 @@
   </div>
 </div>
 
+<paper-button raised
+              on-click="__resetBtnClicked">
+  reset all
+</paper-button>
 
 <div id="max-width-grid">
 
   <div id="selector-cards-wrapper" class="wrapper">
-    <search-type-card></search-type-card>
+    <search-type-card class="resetable"></search-type-card>
 
-    <sort-card></sort-card>
+    <sort-card class="resetable"></sort-card>
 
-    <is-card></is-card>
+    <is-card class="resetable"></is-card>
 
-    <set-card selected="[[selectedSet]]"></set-card>
+    <set-card class="resetable"
+              selected="[[selectedSet]]">
+    </set-card>
 
-    <rarity-card></rarity-card>
+    <rarity-card class="resetable"></rarity-card>
 
-    <format-card></format-card>
+    <format-card class="resetable"></format-card>
   </div>
 
   <div id="right-side-grids">
     <div class="wrapper">
-      <color-card></color-card>
+      <color-card class="resetable"></color-card>
     </div>
 
     <div id="number-cards-wrapper" class="wrapper">
-      <filter-number-card keyword="cms" 
+      <filter-number-card class="resetable"
+                          keyword="cms" 
                           name="Cost"
                           title="Converted Mana Cost">
       </filter-number-card>
 
-      <filter-number-card keyword="power" 
+      <filter-number-card class="resetable"
+                          keyword="power" 
                           name="Power"
                           title="Power">
       </filter-number-card>
 
-      <filter-number-card keyword="toughness" 
+      <filter-number-card class="resetable"
+                          keyword="toughness" 
                           name="Toughness"
                           title="Toughness">
       </filter-number-card>
 
-      <filter-number-card keyword="powtou" 
+      <filter-number-card class="resetable"
+                          keyword="powtou" 
                           name="Pow + Tough"
                           title="Power and Toughness">
       </filter-number-card>
 
-      <filter-number-card keyword="loyalty" 
+      <filter-number-card class="resetable"
+                          keyword="loyalty" 
                           name="Loyalty"
                           title="Loyalty">
       </filter-number-card>
 
-      <filter-number-card keyword="usd" 
+      <filter-number-card class="resetable"
+                          keyword="usd" 
                           name="Price"
                           title="Price">
       </filter-number-card>

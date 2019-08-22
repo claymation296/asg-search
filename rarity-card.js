@@ -63,9 +63,9 @@ class SpritefulRarityCard extends SpritefulElement {
 
 
   static get observers() {
-  	return [
-  		'__valuesChanged(_selected.*, _keyword, _chain)'
-  	];
+    return [
+      '__valuesChanged(_selected.*, _keyword, _chain)'
+    ];
   }
 
 
@@ -106,6 +106,15 @@ class SpritefulRarityCard extends SpritefulElement {
         values
       }
     });
+  }
+
+
+  reset() {
+    const boxes = this.selectAll('paper-checkbox');
+    boxes.forEach(box => {
+      box.checked = false;
+    });    
+    this.$.selector.reset();
   }
 
 }

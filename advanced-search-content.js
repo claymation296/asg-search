@@ -194,10 +194,23 @@ class SpritefulAdvancedSearchContent extends SpritefulElement {
   __computeBackgroundImg(card) {
     if (!card) { return '#'; }
     const {card_faces, image_uris} = card;
-    const artCrop = card_faces ? 
-                      card_faces[0].image_uris.art_crop : 
-                      image_uris.art_crop;
-    return artCrop ? artCrop : '#';
+
+    const findArtCrop = () => {
+      if (image_uris) {
+        return image_uris.art_crop || '#';
+      }
+      if (card_faces && card_faces[0].image_uris) {
+        return card_faces[0].image_uris.art_crop || '#';
+      }
+      return '#';
+    };
+
+    return findArtCrop();
+  }
+
+
+  __computeImgClass(card) {
+    return card ? 'scale' : '';
   }
 
 
@@ -295,6 +308,7 @@ class SpritefulAdvancedSearchContent extends SpritefulElement {
       resetables.forEach(el => {
         el.reset();
       });
+      this.fire('advanced-search-content-reset');
     }
     catch (error) {
       if (error === 'click debounced') { return; }

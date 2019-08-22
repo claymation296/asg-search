@@ -12,17 +12,10 @@ import {
 }                 from '@spriteful/spriteful-element/spriteful-element.js';
 import {
   listen,
-  schedule
-} 	              from '@spriteful/utils/utils.js';
-
-
-
-// import services 	from '@spriteful/services/services.js';
-import services 	from './mock-services.js';
-
-
-
-
+  schedule,
+  warn
+}                 from '@spriteful/utils/utils.js';
+import services   from '@spriteful/services/services.js';
 import htmlString from './sets-overlay.html';
 import '@spriteful/app-header-overlay/app-header-overlay.js';
 import '@spriteful/app-spinner/app-spinner.js';
@@ -47,10 +40,10 @@ class SpritefulSetsOverlay extends SpritefulElement {
         value: () => ({name: 'All'})
       },  
 
-    	_busy: {
-    		type: Boolean,
-    		value: false
-    	},
+      _busy: {
+        type: Boolean,
+        value: false
+      },
       // from sets-sort-filter's direction-button
       _direction: String,
       // from paper-input
@@ -67,16 +60,16 @@ class SpritefulSetsOverlay extends SpritefulElement {
 
 
   static get observers() {
-  	return [
-  		'__selectedChanged(_selected)'
-  	];
+    return [
+      '__selectedChanged(_selected)'
+    ];
   }
 
 
   connectedCallback() {
-  	super.connectedCallback();
+    super.connectedCallback();
 
-  	listen(this.$.overlay, 'overlay-opening', this.__startSpinner.bind(this));
+    listen(this.$.overlay, 'overlay-opening', this.__startSpinner.bind(this));
   }
 
 
@@ -89,22 +82,22 @@ class SpritefulSetsOverlay extends SpritefulElement {
 
 
   __itemSelected(event) {
-  	this._selected = event.detail.value;
+    this._selected = event.detail.value;
   }
 
 
   async __selectedChanged(item) {
-  	if (!item) { return; }
-  	this.fire('sets-overlay-selected-changed', {selected: item});
+    if (!item) { return; }
+    this.fire('sets-overlay-selected-changed', {selected: item});
     await schedule();
     this.$.overlay.close();
   }
 
 
   __startSpinner() {
-  	if (!this._items && !this._busy) {
-  		this.$.spinner.show();
-  	}
+    if (!this._items && !this._busy) {
+      this.$.spinner.show();
+    }
   }
 
 
@@ -150,27 +143,33 @@ class SpritefulSetsOverlay extends SpritefulElement {
 
   
   async __fetchItems() {
-  	try {
-	  	if (!this._items && !this._busy) {
-	  		this._busy = true;
-	  		const sets = await services.cloudFunction({name: 'getSets'});
-	  		this.set('_items', sets);
-	  	}
-  	}
-  	catch (error) {
-  		console.error(error);
-  		await warn('Sorry, an unexpected error occured.');
-  	}
-  	finally {
-  		await this.$.spinner.hide();
-  		this._busy = false;
-  	}
+    try {
+      if (!this._items && !this._busy) {
+        this._busy = true;
+        const sets = await services.cloudFunction({name: 'getSets'});
+        this.set('_items', sets);
+      }
+    }
+    catch (error) {
+      console.error(error);
+      await warn('Sorry, an unexpected error occured.');
+    }
+    finally {
+      await this.$.spinner.hide();
+      this._busy = false;
+    }
   }
 
 
   async open() {
     await this.$.overlay.open();
     return this.__fetchItems();
+  }
+
+
+  reset() {
+    this.$.sortFilter.reset();
+    this.$.listbox.selectIndex(0);
   }
 
 }

@@ -49,11 +49,14 @@
   <div id="content" slot="content">
 
   	<section id="sort-filter-section">
-		  <sets-sort-filter on-sets-sort-filter-value-changed="__sortFilterChanged"></sets-sort-filter>
+		  <sets-sort-filter id="sortFilter" 
+		  									on-sets-sort-filter-value-changed="__sortFilterChanged">
+		  </sets-sort-filter>
 		</section>
 
 		<section>
-		  <paper-listbox attr-for-selected="item"
+		  <paper-listbox id="listbox"
+		  							 attr-for-selected="item"
 		  							 on-selected-changed="__itemSelected">
 		  	<set-item item="[[_all]]"></set-item>
 

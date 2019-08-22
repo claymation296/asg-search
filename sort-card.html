@@ -11,11 +11,14 @@
 
 <filter-card heading="Sort">
 
-	<keyword-items-selector items="[[_sortItems]]"
+	<keyword-items-selector id="selector"
+													items="[[_items]]"
 	                        keyword="order"
 	                        on-keyword-items-selector-selected-changed="__sortItemSelected">
 	</keyword-items-selector>
 
-	<direction-button on-direction-button-value-changed="__directionChanged"></direction-button>
+	<direction-button direction="[[_direction]]" 
+										on-direction-button-value-changed="__directionChanged">
+	</direction-button>
 	
 </filter-card>

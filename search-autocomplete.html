@@ -1,14 +1,14 @@
 
 <style>
 
-	:host {
-		position:         absolute;
-		top: 			        100%;
-		right: 		        0px;
-		left: 		        0px;
+  :host {
+    position:         absolute;
+    top:              100%;
+    right:            0px;
+    left:             0px;
     background-color: transparent;
     margin:           auto;
-	}
+  }
 
   .list-animators {
     transform-origin: center top;
@@ -52,6 +52,16 @@
     opacity:   1;
   }
 
+  paper-button {
+    display:   flex;
+    /*
+      Could not figure out why font-size needs to be specified here.
+      But if not, then the button text is much larger than normal, say 24px or so. 
+    */
+    font-size: 16px; 
+    color:     var(--app-accent-color);
+  }
+
   @media only screen and (min-width: 768px) {
 
     :host {
@@ -64,22 +74,26 @@
 
 
 <div id="xWrapper" 
-		 class="list-animators x-wrapper">
+     class="list-animators x-wrapper">
   <div id="yWrapper" 
-  		 class="list-animators y-wrapper">
+       class="list-animators y-wrapper">
     <paper-listbox id="autoCompleteList" 
-    							 class="list" 
-    							 role="listbox">
+                   class="list" 
+                   role="listbox">
+
+      <paper-button on-click="__closeBtnClicked">
+        close
+      </paper-button>
 
       <template is="dom-repeat" 
-      					items="[[_autocomplete]]" 
-      					as="str"
+                items="[[_autocomplete]]" 
+                as="str"
                 role="option"
                 on-dom-change="__domChanged">
 
         <paper-item class="item" 
-        						on-click="__itemClicked">
-        	[[str]]
+                    on-click="__itemClicked">
+          [[str]]
         </paper-item>
         
       </template>

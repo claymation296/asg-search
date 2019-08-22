@@ -18,6 +18,7 @@ import htmlString from './advanced-search-content.html';
 import '@spriteful/asg-icons/asg-icons.js';
 import '@polymer/iron-icon/iron-icon.js';
 import '@polymer/iron-image/iron-image.js';
+import '@polymer/paper-button/paper-button.js';
 import './search-type-card.js';
 import './sort-card.js';
 import './is-card.js';
@@ -284,6 +285,21 @@ class SpritefulAdvancedSearchContent extends SpritefulElement {
     listen(this, 'format-card-value-changed',        this.__formatCardChanged.bind(this));
     listen(this, 'color-card-value-changed',         this.__colorCardChanged.bind(this));
     listen(this, 'filter-number-card-value-changed', this.__numberCardChanged.bind(this));
+  }
+
+
+  async __resetBtnClicked() {
+    try {
+      await this.clicked();
+      const resetables = this.selectAll('.resetable');
+      resetables.forEach(el => {
+        el.reset();
+      });
+    }
+    catch (error) {
+      if (error === 'click debounced') { return; }
+      console.error(error);
+    }
   }
 
 

@@ -43,9 +43,12 @@
 
 <div id="name">[[name]]</div>
 
-<operator-selector on-operator-selector-selected-changed="__menuValueChanged"></operator-selector>
+<operator-selector id="selector" 
+                   on-operator-selector-selected-changed="__menuValueChanged">
+</operator-selector>
 
-<paper-input type="tel"
+<paper-input id="input"
+             type="tel"
              allowed-pattern="[0-9.]"
              auto-validate
              maxlength="10"

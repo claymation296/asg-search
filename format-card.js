@@ -30,13 +30,13 @@ class SpritefulFormatCard extends SpritefulElement {
 
       _chain: String,
 
-    	_keyword: {
-    		type: String,
-    		value: 'format' // or 'banned'
-    	},
+      _keyword: {
+        type: String,
+        value: 'format' // or 'banned'
+      },
 
-    	// from keyword-items-selector
-    	_selected: Object,
+      // from keyword-items-selector
+      _selected: Object,
 
       _items: {
         type: Array,
@@ -87,9 +87,9 @@ class SpritefulFormatCard extends SpritefulElement {
 
 
   static get observers() {
-  	return [
-  		'__valuesChanged(_selected, _keyword, _chain)'
-  	];
+    return [
+      '__valuesChanged(_selected, _keyword, _chain)'
+    ];
   }
 
 
@@ -103,26 +103,33 @@ class SpritefulFormatCard extends SpritefulElement {
   __selected(event) {
     event.stopImmediatePropagation();
     event.stopPropagation();
-  	this._selected = event.detail.selected;
+    this._selected = event.detail.selected;
   }
 
 
   __checked(event) {
     event.stopImmediatePropagation();
     event.stopPropagation();
-  	this._keyword = event.detail.value ? 'banned' : 'format';
+    this._keyword = event.detail.value ? 'banned' : 'format';
   }
 
 
   __valuesChanged(item, keyword, chain) {
-  	if (!item || !keyword || !chain) { return; }
-  	this.fire('format-card-value-changed', {
-  		value: {
-  			...item,
+    if (!item || !keyword || !chain) { return; }
+    this.fire('format-card-value-changed', {
+      value: {
+        ...item,
         chain,
-  			keyword
-  		}
-  	});
+        keyword
+      }
+    });
+  }
+
+
+  reset() {
+    this.$.chainSelector.reset();
+    this.$.itemsSelector.reset();
+    this.$.toggle.checked = false;
   }
 
 }

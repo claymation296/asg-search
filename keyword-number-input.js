@@ -1,12 +1,12 @@
 
 /**
-	*
-	*	keyword-number-input
-	*
-	*	number input for scryfall search operators
-	*
-	*
-	**/
+  *
+  * keyword-number-input
+  *
+  * number input for scryfall search operators
+  *
+  *
+  **/
 
 import {
   SpritefulElement, 
@@ -26,46 +26,46 @@ class SpritefulKeywordNumberInput extends SpritefulElement {
 
 
   static get properties() {
-  	return {
+    return {
 
-  		keyword: String,
+      keyword: String,
 
-  		name: String,
+      name: String,
 
-  		operator: String,
+      operator: String,
 
-  		number: Number
+      number: Number
 
-  	};
+    };
   }
 
 
   static get observers() {
-  	return [
-  		'__valuesChanged(keyword, operator, number)'
-  	];
+    return [
+      '__valuesChanged(keyword, operator, number)'
+    ];
   }
 
 
   __menuValueChanged(event) {
-  	event.stopImmediatePropagation();
+    event.stopImmediatePropagation();
     event.stopPropagation();
     this.operator = event.detail.selected;
   }
 
 
   __inputChanged(event) {
-  	const {value} = event.detail;
-  	this.number   = Number(value);
+    const {value} = event.detail;
+    this.number   = Number(value);
   }
 
 
   __valuesChanged(keyword, operator, number) {
-  	if (
-  		!keyword || 
-  		typeof operator !== 'string' || 
-  		typeof number 	!== 'number'
-  	) { return; }
+    if (
+      !keyword || 
+      typeof operator !== 'string' || 
+      typeof number   !== 'number'
+    ) { return; }
 
     this.fire('keyword-number-input-value-changed', {
       value: {        
@@ -74,6 +74,12 @@ class SpritefulKeywordNumberInput extends SpritefulElement {
         number
       }
     });
+  }
+
+
+  reset() {
+    this.$.input.value = 0;
+    this.$.selector.reset();
   }
 
 }

@@ -25,16 +25,19 @@
 
 <filter-card heading="Format Legality">
 
-	<chain-selector slot="chain-btn" 
+	<chain-selector id="chainSelector"
+									slot="chain-btn" 
 									on-chain-selector-selected-changed="__chainSelected">
 	</chain-selector>
 
-	<keyword-items-selector items="[[_items]]"
+	<keyword-items-selector id="itemsSelector"
+													items="[[_items]]"
 	                        keyword="format"
 	                        on-keyword-items-selector-selected-changed="__selected">
 	</keyword-items-selector>
 
-	<paper-toggle-button on-checked-changed="__checked">
+	<paper-toggle-button id="toggle" 
+											 on-checked-changed="__checked">
 		Banned
 	</paper-toggle-button>
 </filter-card>

@@ -1,12 +1,12 @@
 
 /**
-	*
-	*	chain-selector
-	*
-	*	scryfall search query chaining words (and, or, not)
-	*
-	*
-	**/
+  *
+  * chain-selector
+  *
+  * scryfall search query chaining words (and, or, not)
+  *
+  *
+  **/
 
 import {
   SpritefulElement, 
@@ -25,28 +25,33 @@ class SpritefulChainSelector extends SpritefulElement {
 
 
   static get properties() {
-  	return {
+    return {
 
       _selected: {
         type: String,
         value: 'and'
       },
 
-  		_chains: {
-  			type: Array,
-  			value: ['and', 'or', 'not']
-  		}
+      _chains: {
+        type: Array,
+        value: ['and', 'or', 'not']
+      }
 
-  	};
+    };
   }
 
 
   __menuValueChanged(event) {
-  	event.stopImmediatePropagation();
+    event.stopImmediatePropagation();
     event.stopPropagation();
     const {selected} = event.detail;
     this._selected   = selected;
     this.fire('chain-selector-selected-changed', {selected});
+  }
+
+
+  reset() {
+    this.$.selector.reset();
   }
 
 }

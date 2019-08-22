@@ -44,9 +44,9 @@ class SpritefulIsCard extends SpritefulElement {
 
 
   static get observers() {
-  	return [
-  		'__valuesChanged(_selected.*, _keyword, _chain)'
-  	];
+    return [
+      '__valuesChanged(_selected.*, _keyword, _chain)'
+    ];
   }
 
 
@@ -65,29 +65,29 @@ class SpritefulIsCard extends SpritefulElement {
   __foilCheckedChanged(event) {
     event.stopImmediatePropagation();
     event.stopPropagation();
-  	const {value} = event.detail;
-  	this.__setSelected(value, 'foil');
+    const {value} = event.detail;
+    this.__setSelected(value, 'foil');
   }
 
 
   __standardCheckedChanged(event) {
     event.stopImmediatePropagation();
     event.stopPropagation();
-  	const {value} = event.detail;
-  	this.__setSelected(value, 'nonfoil');
+    const {value} = event.detail;
+    this.__setSelected(value, 'nonfoil');
   }
 
 
   __commanderCheckedChanged(event) {
     event.stopImmediatePropagation();
     event.stopPropagation();
-  	const {value} = event.detail;
-  	this.__setSelected(value, 'commander');
+    const {value} = event.detail;
+    this.__setSelected(value, 'commander');
   }
 
 
   __valuesChanged(itemsObj, keyword, chain) {
-  	if (
+    if (
       !itemsObj      || 
       !itemsObj.base || 
       !keyword       || 
@@ -99,13 +99,22 @@ class SpritefulIsCard extends SpritefulElement {
     const values = Object.keys(items).filter(key => 
                      items[key] === true);
 
-  	this.fire('is-card-value-changed', {
-  		value: {
+    this.fire('is-card-value-changed', {
+      value: {
         chain,
         keyword,
-  			values
-  		}
-  	});
+        values
+      }
+    });
+  }
+
+
+  reset() {
+    const boxes = this.selectAll('paper-checkbox');
+    boxes.forEach(box => {
+      box.checked = false;
+    });    
+    this.$.selector.reset();
   }
 
 }

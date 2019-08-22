@@ -1,12 +1,12 @@
 
 /**
-	*
-	*	app-dropdown-menu
-	*
-	*	dropdown menu with button and items list
-	*
-	*
-	**/
+  *
+  * app-dropdown-menu
+  *
+  * dropdown menu with button and items list
+  *
+  *
+  **/
 
 import {
   SpritefulElement, 
@@ -27,53 +27,58 @@ class SpritefulAppDropdownMenu extends SpritefulElement {
 
 
   static get properties() {
-  	return {
+    return {
       // dropdown horizontal alignment
       align: {
         type: String,
         value: 'left' // 'auto', 'center', right'
       },
 
-  		attrForSelected: {
-  			type: String,
-  			value: 'value'
-  		},
+      attrForSelected: {
+        type: String,
+        value: 'value'
+      },
 
-  		items: {
-  			type: Array,
-  			value: ['foo', 'bar', 'baz']
-  		},
-  		// Any, same type as is passed in items array
-  		value: Object,
+      items: {
+        type: Array,
+        value: ['foo', 'bar', 'baz']
+      },
+      // Any, same type as is passed in items array
+      value: Object,
 
       verticalAlign: String
 
-  	};
+    };
   }
 
 
   static get observers() {
-  	return [
-  		'__itemsChanged(items)',
-  		'__valueChanged(value)'
-  	];
+    return [
+      '__itemsChanged(items)',
+      '__valueChanged(value)'
+    ];
   }
 
   // default to first item
   __itemsChanged(items) {
-  	if (Array.isArray(items)) {
-  		this.value = items[0];
-  	}
+    if (Array.isArray(items)) {
+      this.value = items[0];
+    }
   }
 
 
-  __valueChanged(value) {  	
-  	this.fire('app-dropdown-menu-value-changed', {value});
+  __valueChanged(value) {   
+    this.fire('app-dropdown-menu-value-changed', {value});
   }
 
 
   __selected(event) {
-  	this.value = event.detail.value;
+    this.value = event.detail.value;
+  }
+
+
+  reset() {
+    this.$.listbox.selectIndex(0);
   }
 
 }

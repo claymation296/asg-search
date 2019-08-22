@@ -1,6 +1,6 @@
 {
   "name": "@spriteful/asg-search",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A suite of components revolving around searching scryfall/fb magic cards, including a search input with autocomplete and an advanced search overlay",
   "main": "index.js",
   "scripts": {

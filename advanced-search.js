@@ -58,7 +58,7 @@ class SpritefulAdvancedSearch extends SpritefulElement {
     listen(this.$.overlay, 'overlay-reset',       this.__reset.bind(this));   
   }
 
-
+  // from 'Reset All' btn in advanced-search-content
   async __contentReset() {
     if (this.$.setsOverlay.reset) { // may not have been lazy loaded yet
       this.$.setsOverlay.reset();

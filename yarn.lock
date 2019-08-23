@@ -693,10 +693,10 @@
     "@polymer/iron-iconset-svg" "^3.0.1"
     "@polymer/polymer" "^3.3.0"
 
-"@spriteful/asg-shop-card-shared-elements@^1.1.12":
-  version "1.1.12"
-  resolved "https://registry.yarnpkg.com/@spriteful/asg-shop-card-shared-elements/-/asg-shop-card-shared-elements-1.1.12.tgz#85937929f1f549382230ffe1023935e1fcb49ed7"
-  integrity sha512-zT0hepACE+AudT4R0YiTNivA/N32ie377hlPi6wnujR7uFi/7toLd9ov5G2iZVkb3pq8+So+8FtEvLmj4K+scQ==
+"@spriteful/asg-shop-card-shared-elements@^1.1.13":
+  version "1.1.13"
+  resolved "https://registry.yarnpkg.com/@spriteful/asg-shop-card-shared-elements/-/asg-shop-card-shared-elements-1.1.13.tgz#bcc3c56c60d214601419ac9b2758719afe2b98bc"
+  integrity sha512-MXXsK1t9RXMLK3BEHp7r5pXWEY5CKFgiAxgGXSObDCbv/1/0tt7rNnYycJKjn2kx0czwzox+VFOJev/7BTKcAw==
   dependencies:
     "@polymer/iron-icon" "^3.0.1"
     "@polymer/iron-iconset-svg" "^3.0.1"

@@ -46,8 +46,14 @@
     font-style: italic;
   }
 
+  #reset-btn-wrapper {
+    width:     100%;
+    max-width: 678px;  /* align with max-width-grid */
+    margin:    0px auto;
+  }
+
   paper-button {
-    margin-bottom:    24px;
+    margin: 4px;
     background-color: var(--app-primary-color);
     color:            var(--constant-light-text);
   }
@@ -88,7 +94,11 @@
 
   }
 
-  @media only screen and (min-width: 1408px) {    
+  @media only screen and (min-width: 1408px) {
+
+    #reset-btn-wrapper {
+      max-width: 1382px; /* align with max-width-grid */
+    }  
 
     #max-width-grid {
       width:     100%;
@@ -117,10 +127,12 @@
   </div>
 </div>
 
-<paper-button raised
-              on-click="__resetBtnClicked">
-  reset all
-</paper-button>
+<div id="reset-btn-wrapper">
+  <paper-button raised
+                on-click="__resetBtnClicked">
+    reset all
+  </paper-button>
+</div>
 
 <div id="max-width-grid">
 

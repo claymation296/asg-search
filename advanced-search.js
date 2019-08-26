@@ -62,7 +62,7 @@ class SpritefulAdvancedSearch extends SpritefulElement {
   async __contentReset() {
     if (this.$.setsOverlay.reset) { // may not have been lazy loaded yet
       this.$.setsOverlay.reset();
-    }    
+    }
     // make sure reset runs after 'advanced-search-value-changed'
     await schedule();
     this.fire('advanced-search-reset');

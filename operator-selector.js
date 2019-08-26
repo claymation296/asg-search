@@ -30,7 +30,7 @@ class SpritefulOperatorSelector extends SpritefulElement {
 
       operators: {
         type: Array,
-        value: ['>=', '>', '=', '<', '<=']
+        value: ['=', '>=', '>', '<', '<=']
       },
 
       selected: String,

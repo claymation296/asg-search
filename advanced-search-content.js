@@ -308,6 +308,11 @@ class SpritefulAdvancedSearchContent extends SpritefulElement {
       resetables.forEach(el => {
         el.reset();
       });
+      // must handle numbers in a more granular fashion
+      // because the ui defaults to '=' 0, which would never
+      // return results, so remove them completely from _numbersStr
+      // by setting _numbers back to its original state
+      this.set('_numbers', {});
       this.fire('advanced-search-content-reset');
     }
     catch (error) {
